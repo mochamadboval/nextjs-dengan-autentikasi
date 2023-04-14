@@ -28,7 +28,7 @@ export default function SignUp() {
     }
   };
 
-  const signUpHandler = (event) => {
+  const signUpHandler = async (event) => {
     event.preventDefault();
 
     setErrorMessage(null);
@@ -43,7 +43,16 @@ export default function SignUp() {
       return;
     }
 
-    console.log(name, email, password, passwordConfirmation);
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, name, password }),
+    });
+    const newUser = await response.json();
+
+    console.log(newUser);
   };
 
   return (

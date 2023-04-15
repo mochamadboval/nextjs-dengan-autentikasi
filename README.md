@@ -9,5 +9,6 @@
 
 ### Fungsionalitas Sign Up
 
+- Memvalidasi apakah email sudah terdaftar atau belum dan menampilkan pesan _error_-nya
 - Menggunakan [bcryptjs](https://www.npmjs.com/package/bcryptjs) untuk _hashing_ kata sandi sebelum disimpan
 - Menyimpan data ke [Firebase Realtime Database](https://console.firebase.google.com/)

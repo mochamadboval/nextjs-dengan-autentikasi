@@ -52,7 +52,11 @@ export default function SignUp() {
     });
     const newUser = await response.json();
 
-    console.log(newUser);
+    if (response.status === 201) {
+      alert(newUser.message);
+    } else {
+      setErrorMessage(newUser.message);
+    }
   };
 
   return (

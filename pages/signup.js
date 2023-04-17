@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 import ButtonAuth from "@/components/Form/ButtonAuth";
+import ButtonValidate from "@/components/Form/ButtonValidate";
 import InputAuth from "@/components/Form/InputAuth";
 import ButtonPage from "@/components/UI/ButtonPage";
 import Card from "@/components/UI/Card";
@@ -19,6 +20,7 @@ export default function SignUp() {
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [isPasswordMatch, setIsPasswordMatch] = useState(true);
+  const [isValidating, setIsValidating] = useState(false);
 
   const comparePasswordHandler = () => {
     const password = passwordRef.current.value;
@@ -35,6 +37,7 @@ export default function SignUp() {
     event.preventDefault();
 
     setErrorMessage(null);
+    setIsValidating(true);
 
     const email = emailRef.current.value;
     const name = nameRef.current.value;
@@ -43,6 +46,7 @@ export default function SignUp() {
 
     if (passwordConfirmation !== password) {
       setErrorMessage("Kata sandi tidak cocok.");
+      setIsValidating(false);
       return;
     }
 
@@ -60,6 +64,7 @@ export default function SignUp() {
       replace("/login");
     } else {
       setErrorMessage(newUser.message);
+      setIsValidating(false);
     }
   };
 
@@ -113,7 +118,11 @@ export default function SignUp() {
             {!isPasswordMatch && (
               <p className="text-red-700 text-xs">Kata sandi tidak cocok.</p>
             )}
-            <ButtonAuth>Daftar</ButtonAuth>
+            {isValidating ? (
+              <ButtonValidate />
+            ) : (
+              <ButtonAuth>Daftar</ButtonAuth>
+            )}
           </form>
           <ButtonPage url="/login">Masuk</ButtonPage>
         </Card>

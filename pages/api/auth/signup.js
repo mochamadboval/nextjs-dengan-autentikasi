@@ -13,6 +13,22 @@ export default async function handler(req, res) {
   const name = req.body.name.trim();
   const password = req.body.password;
 
+  let invalid = null;
+  if (!name) {
+    invalid = "Nama tidak boleh kosong.";
+  } else if (!email) {
+    invalid = "Email tidak boleh kosong.";
+  } else if (!email.includes("@")) {
+    invalid = "Email harus menggunakan simbol @.";
+  } else if (!password || password.length < 8) {
+    invalid = "Kata sandi harus minimal 8 karakter.";
+  }
+
+  if (invalid) {
+    res.status(422).json({ message: invalid });
+    return;
+  }
+
   const usersRef = ref(database, "users");
   const emailQuery = query(usersRef, orderByChild("email"), equalTo(email));
   const user = await get(emailQuery);

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { useRef, useState } from "react";
 
@@ -9,6 +10,8 @@ import Card from "@/components/UI/Card";
 import Layout from "@/components/UI/Layout";
 
 export default function SignUp() {
+  const { replace } = useRouter();
+
   const emailRef = useRef();
   const nameRef = useRef();
   const passwordRef = useRef();
@@ -54,6 +57,7 @@ export default function SignUp() {
 
     if (response.status === 201) {
       alert(newUser.message);
+      replace("/login");
     } else {
       setErrorMessage(newUser.message);
     }

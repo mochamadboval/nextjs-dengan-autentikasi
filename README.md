@@ -14,3 +14,7 @@
 - Menggunakan [bcryptjs](https://www.npmjs.com/package/bcryptjs) untuk _hashing_ kata sandi sebelum disimpan
 - Menyimpan data ke [Firebase Realtime Database](https://console.firebase.google.com/)
 - Mengalihkan laman ke `/login` setelah pendaftaran berhasil
+
+### Fungsionalitas Login
+
+- Instal `next-auth` dan menulis konfigurasi sesuai [dokumentasinya](https://next-auth.js.org/getting-started/example)

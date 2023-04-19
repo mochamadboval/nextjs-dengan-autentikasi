@@ -16,7 +16,7 @@ function checkInvalidInput(email, name, password) {
   }
 }
 
-async function checkEmailExists(email) {
+export async function checkEmailExists(email) {
   const usersRef = ref(database, "users");
   const emailQuery = query(usersRef, orderByChild("email"), equalTo(email));
   return await get(emailQuery);

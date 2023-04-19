@@ -1,6 +1,9 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { useRef } from "react";
+
+import { signIn } from "next-auth/react";
 
 import ButtonAuth from "@/components/Form/ButtonAuth";
 import InputAuth from "@/components/Form/InputAuth";
@@ -9,16 +12,28 @@ import Card from "@/components/UI/Card";
 import Layout from "@/components/UI/Layout";
 
 export default function Login() {
+  const { replace } = useRouter();
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const loginHandler = (event) => {
+  const loginHandler = async (event) => {
     event.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    console.log(email, password);
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    console.log(result);
+
+    if (result.status === 200) {
+      replace("/");
+    }
   };
 
   return (

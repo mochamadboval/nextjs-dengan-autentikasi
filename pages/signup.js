@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 
 import ButtonAuth from "@/components/Form/ButtonAuth";
 import ButtonValidate from "@/components/Form/ButtonValidate";
+import ErrorMessage from "@/components/Form/ErrorMessage";
 import InputAuth from "@/components/Form/InputAuth";
 import ButtonPage from "@/components/UI/ButtonPage";
 import Card from "@/components/UI/Card";
@@ -83,11 +84,7 @@ export default function SignUp() {
       <Layout>
         <Card>
           <h2 className="font-bold text-center text-xl">DAFTAR</h2>
-          {errorMessage && (
-            <p className="bg-red-50 mt-4 p-3 rounded text-center text-red-700 text-sm">
-              {errorMessage}
-            </p>
-          )}
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           <form className="flex flex-col gap-2 mt-4" onSubmit={signUpHandler}>
             <InputAuth
               name="Nama"

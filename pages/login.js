@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { signIn } from "next-auth/react";
 
 import ButtonAuth from "@/components/Form/ButtonAuth";
+import ButtonValidate from "@/components/Form/ButtonValidate";
+import ErrorMessage from "@/components/Form/ErrorMessage";
 import InputAuth from "@/components/Form/InputAuth";
 import ButtonPage from "@/components/UI/ButtonPage";
 import Card from "@/components/UI/Card";
@@ -17,8 +19,14 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isValidating, setIsValidating] = useState(false);
+
   const loginHandler = async (event) => {
     event.preventDefault();
+
+    setErrorMessage(null);
+    setIsValidating(true);
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -29,10 +37,11 @@ export default function Login() {
       redirect: false,
     });
 
-    console.log(result);
-
     if (result.status === 200) {
       replace("/");
+    } else {
+      setErrorMessage(result.error);
+      setIsValidating(false);
     }
   };
 
@@ -51,6 +60,7 @@ export default function Login() {
       <Layout>
         <Card>
           <h2 className="font-bold text-center text-xl">MASUK</h2>
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           <form className="flex flex-col gap-2 mt-4" onSubmit={loginHandler}>
             <InputAuth
               name="Email"
@@ -64,7 +74,7 @@ export default function Login() {
               type="password"
               ref={passwordRef}
             />
-            <ButtonAuth>Masuk</ButtonAuth>
+            {isValidating ? <ButtonValidate /> : <ButtonAuth>Masuk</ButtonAuth>}
           </form>
           <ButtonPage url="/signup">Daftar</ButtonPage>
         </Card>

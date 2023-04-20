@@ -21,3 +21,4 @@
 - Pada `[...nextauth].js` memvalidasi tiap data yang dikirim oleh form `/login`
 - Mengalihkan laman ke `/` setelah login berhasil
 - Menggunakan _session_ untuk menampilkan nama akun dan tombol _logout_
+- Mengalihkan laman `/login` dan `/signup` ke `/` ketika memiliki _session_

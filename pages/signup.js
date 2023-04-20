@@ -3,6 +3,10 @@ import { useRouter } from "next/router";
 
 import { useRef, useState } from "react";
 
+import { getServerSession } from "next-auth";
+
+import { authOptions } from "./api/auth/[...nextauth]";
+
 import ButtonAuth from "@/components/Form/ButtonAuth";
 import ButtonValidate from "@/components/Form/ButtonValidate";
 import ErrorMessage from "@/components/Form/ErrorMessage";
@@ -126,4 +130,21 @@ export default function SignUp() {
       </Layout>
     </>
   );
+}
+
+export async function getServerSideProps({ req, res }) {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }

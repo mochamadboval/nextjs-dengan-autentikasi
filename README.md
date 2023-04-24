@@ -22,3 +22,7 @@
 - Mengalihkan laman ke `/` setelah login berhasil
 - Menggunakan _session_ untuk menampilkan nama akun dan tombol _logout_
 - Mengalihkan laman `/login` dan `/signup` ke `/` ketika memiliki _session_
+
+### Verifikasi akun
+
+- Menggunakan [Nodemailer](https://nodemailer.com/about/) untuk mengirim email verifikasi akun

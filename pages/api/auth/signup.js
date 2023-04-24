@@ -1,6 +1,7 @@
 import { hash } from "bcryptjs";
 import { randomUUID } from "crypto";
 import { equalTo, get, orderByChild, query, ref, set } from "firebase/database";
+import { createTransport } from "nodemailer";
 
 import { database } from "@/helpers/firebase";
 
@@ -22,12 +23,41 @@ export async function checkEmailExists(email) {
   return await get(emailQuery);
 }
 
-async function createUser(email, name, password) {
+async function createUser(email, name, password, verifyToken) {
   const newUserRef = ref(database, `users/${randomUUID()}`);
   await set(newUserRef, {
     email,
     name,
     password,
+    verified: false,
+    verifyToken,
+  });
+}
+
+async function sendEmailVerification(email, name, verifyToken) {
+  const transporter = createTransport({
+    host: "smtp.zoho.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.ZOHO_USER,
+      pass: process.env.ZOHO_PASS,
+    },
+  });
+
+  const message = `
+    <p>Hai, ${name}.</p>
+    <p>Verifikasi akun pada tautan berikut:</p>
+    <a href="https://nextjs-dengan-autentikasi.vercel.app/confirm?token=${verifyToken}" target="_blank">
+      https://nextjs-dengan-autentikasi.vercel.app/confirm?token=${verifyToken}
+    </a>
+  `;
+
+  await transporter.sendMail({
+    from: process.env.ZOHO_USER,
+    to: email,
+    subject: "[Next.js dengan autentikasi] Verifikasi Akun",
+    html: message,
   });
 }
 
@@ -53,8 +83,10 @@ export default async function handler(req, res) {
   }
 
   const hashedPassword = await hash(password, 10);
+  const verifyToken = randomUUID();
 
-  await createUser(email, name, hashedPassword);
+  await createUser(email, name, hashedPassword, verifyToken);
+  await sendEmailVerification(email, name, verifyToken);
 
   res.status(201).json({ message: "Pendaftaran berhasil." });
 }

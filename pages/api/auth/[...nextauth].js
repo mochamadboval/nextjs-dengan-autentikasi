@@ -24,6 +24,10 @@ export const authOptions = {
           throw new Error("Email atau kata sandi salah.");
         }
 
+        if (!userValue.verified) {
+          throw new Error("Cek email untuk verifikasi akun terlebih dahulu.");
+        }
+
         return { email: userValue.email, image: null, name: userValue.name };
       },
     }),

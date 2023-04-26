@@ -48,6 +48,25 @@ export default function Login() {
     }
   };
 
+  const resendVerificationHandler = async () => {
+    const email = emailRef.current.value;
+
+    const response = await fetch("/api/auth/resend-verification", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    const resend = await response.json();
+
+    if (response.status === 200) {
+      alert(resend.message);
+    } else {
+      setErrorMessage(resend.message);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -63,7 +82,11 @@ export default function Login() {
       <Layout>
         <Card>
           <h2 className="font-bold text-center text-xl">MASUK</h2>
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {errorMessage && (
+            <ErrorMessage onResend={resendVerificationHandler}>
+              {errorMessage}
+            </ErrorMessage>
+          )}
           <form className="flex flex-col gap-2 mt-4" onSubmit={loginHandler}>
             <InputAuth
               name="Email"

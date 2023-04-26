@@ -27,4 +27,4 @@
 
 - Menggunakan [Nodemailer](https://nodemailer.com/about/) untuk mengirim email verifikasi akun
 - Membuat laman `/confirm` sebagai tempat akun diverifikasi
-- Mencegah akun yang belum verifikasi email untuk login
+- Mencegah akun yang belum verifikasi email untuk login dan menyediakan opsi untuk mengirim ulang

@@ -34,7 +34,7 @@ async function createUser(email, name, password, verifyToken) {
   });
 }
 
-async function sendEmailVerification(email, name, verifyToken) {
+export async function sendEmailVerification(email, name, verifyToken) {
   const transporter = createTransport({
     host: "smtp.zoho.com",
     port: 465,

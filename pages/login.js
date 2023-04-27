@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useRef, useState } from "react";
@@ -100,6 +101,12 @@ export default function Login() {
               type="password"
               ref={passwordRef}
             />
+            <Link
+              href="/forgot-password"
+              className="self-end text-blue-700 text-sm underline"
+            >
+              Lupa kata sandi
+            </Link>
             {isValidating ? <ButtonValidate /> : <ButtonAuth>Masuk</ButtonAuth>}
           </form>
           <ButtonPage url="/signup">Daftar</ButtonPage>

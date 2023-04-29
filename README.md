@@ -32,3 +32,4 @@
 ### Lupa kata sandi
 
 - Mengirim email untuk memulihkan akun karena lupa kata sandi
+- Membuat laman `/reset-password` untuk mengatur ulang kata sandi

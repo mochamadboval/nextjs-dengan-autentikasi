@@ -34,12 +34,15 @@ export default function Home(props) {
             Hai, {user ? user.name : "orang asing"}.
           </p>
           {user ? (
-            <button
-              className="bg-red-700 border border-red-700 mt-4 p-2.5 rounded text-center text-white w-full"
-              onClick={logoutHandler}
-            >
-              Keluar
-            </button>
+            <>
+              <ButtonPage url="/profile">Profil</ButtonPage>
+              <button
+                className="bg-red-700 border border-red-700 mt-4 p-2.5 rounded text-center text-white w-full"
+                onClick={logoutHandler}
+              >
+                Keluar
+              </button>
+            </>
           ) : (
             <ButtonPage url="/login">Masuk</ButtonPage>
           )}

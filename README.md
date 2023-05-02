@@ -33,3 +33,8 @@
 
 - Mengirim email untuk memulihkan akun karena lupa kata sandi
 - Membuat laman `/reset-password` untuk mengatur ulang kata sandi
+
+### Profil
+
+- Membuat laman `/profile` dan menampilkan opsi untuk mengubah profil serta kata sandi
+- Membuat laman `/profile/change-password` untuk mengubah kata sandi

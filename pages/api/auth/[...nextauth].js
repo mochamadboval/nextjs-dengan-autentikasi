@@ -6,6 +6,19 @@ import { compare } from "bcryptjs";
 import { checkEmailExists } from "./signup";
 
 export const authOptions = {
+  callbacks: {
+    async jwt({ session, token, trigger, user }) {
+      if (trigger === "update" && session) {
+        return { ...token, ...session?.user };
+      }
+
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
+  },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {

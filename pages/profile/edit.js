@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 
 import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -16,6 +17,8 @@ import Layout from "@/components/UI/Layout";
 
 export default function EditProfile(props) {
   const { email, name } = props.user;
+
+  const { data: session, update } = useSession();
 
   const { replace } = useRouter();
 
@@ -49,6 +52,16 @@ export default function EditProfile(props) {
     const edit = await response.json();
 
     if (response.status === 200) {
+      const newSession = {
+        ...session,
+        user: {
+          ...session?.user,
+          email: newEmail,
+          name,
+        },
+      };
+      await update(newSession);
+
       alert(edit.message);
       replace("/profile");
     } else {

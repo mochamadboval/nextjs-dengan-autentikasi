@@ -5,7 +5,7 @@ import { createTransport } from "nodemailer";
 
 import { database } from "@/helpers/firebase";
 
-function checkInvalidInput(email, name, password) {
+export function checkInvalidInput(email, name, password) {
   if (!name) {
     return "Nama tidak boleh kosong.";
   } else if (!email) {

@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 const InputAuth = forwardRef(function InputAuth(props, ref) {
-  const { comparePassword, name, placeholder, type } = props;
+  const { comparePassword, name, placeholder, type, value } = props;
 
   return (
     <div>
@@ -10,6 +10,7 @@ const InputAuth = forwardRef(function InputAuth(props, ref) {
         type={type}
         id={name}
         placeholder={placeholder}
+        defaultValue={value}
         ref={ref}
         onChange={comparePassword && comparePassword}
         className="bg-neutral-50 mt-1 p-3 rounded shadow-inner text-sm w-full"

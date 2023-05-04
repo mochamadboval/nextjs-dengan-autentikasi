@@ -38,3 +38,4 @@
 
 - Membuat laman `/profile` dan menampilkan opsi untuk mengubah profil serta kata sandi
 - Membuat laman `/profile/change-password` untuk mengubah kata sandi
+- Membuat laman `/profile/edit` untuk mengubah profil

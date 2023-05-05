@@ -24,6 +24,7 @@ export default function EditProfile(props) {
 
   const emailRef = useRef();
   const nameRef = useRef();
+  const passwordRef = useRef();
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [isValidating, setIsValidating] = useState(false);
@@ -36,13 +37,14 @@ export default function EditProfile(props) {
 
     const newEmail = emailRef.current.value;
     const name = nameRef.current.value;
+    const password = passwordRef.current.value;
 
     const response = await fetch("/api/auth/edit-profile", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, name, newEmail }),
+      body: JSON.stringify({ email, name, newEmail, password }),
     });
     if (response.status === 304) {
       replace("/profile");
@@ -104,6 +106,13 @@ export default function EditProfile(props) {
               ref={emailRef}
               value={email}
             />
+            <InputAuth
+              name="Kata Sandi *"
+              placeholder="********"
+              type="password"
+              ref={passwordRef}
+            />
+            <p className="text-xs">* untuk konfirmasi perubahan.</p>
             {isValidating ? (
               <ButtonValidate />
             ) : (
